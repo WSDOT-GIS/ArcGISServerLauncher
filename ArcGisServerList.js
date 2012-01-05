@@ -86,15 +86,28 @@
                 this._protocol = match[1];
                 this._name = match[2];
                 this._instance = match[3];
-                // this._url = match[1] + "/" + match[2] + "/" + match[3] + "/rest";
             } else {
-                // this._url = "http://" + this.options.name + "/ArcGIS/rest";
                 this._name = this.options.server;
             }
             
             // Create the list of links.
             $(this.element).text(this._name);
             this._list = $("<ul>").appendTo(this.element);
+            
+            // Add the manager link.
+            link = $("<a>ArcGIS Server Manager</a>").attr({
+                href: [this._protocol + this._name, this._instance, "Manager"].join("/")
+            });
+            $("<li>").append(link).appendTo(this._list);
+            
+            // Add rest admin link.
+            link = $("<a>REST administration</a>").attr({
+                href: [this._protocol + this._name, this._instance, "rest", "admin"].join("/")
+            });
+            $("<li>").append(link).appendTo(this._list);
+
+            
+            // Add the REST endpoint link.
             link = $("<a>REST endpoint</a>").attr({
                 href: [this._protocol + this._name, this._instance, "rest"].join("/")
             });
