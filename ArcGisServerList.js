@@ -4,32 +4,6 @@
     
     // A regex that matches an ArcGIS Server REST endpoint.  Capture 1 is the protocol, 2 is the server name, capture 3 is the instance name (usually "ArcGIS").
     var restEndpointRe = /(https?\:\/\/)(.+)\/(\w+)\/rest(?:\/services)?/i;
-        
-    // /**
-    // Creates an ArcGIS Server rest endpoint URI using the name of the server.
-    // */
-    // function getRestLink(server, text) {
-        // if (!text) {
-            // text = server.Name;
-        // }
-        // return "<a href='http://" + server.Name + "/arcgis/rest/services'>" + text + "</a>";
-    // }
-    // 
-    // function getRestAdminLink(server, text) {
-        // if (!text) {
-            // text = server.Name;
-        // }
-        // return "<a href='http://" + server.Name + "/arcgis/rest/admin'>" + text + "</a>";
-    // }
-    // 
-    // function getManagerLink(server, text) {
-        // if (!text) {
-            // text = server.Name;
-        // }
-        // var link = $("<a>").attr("href", "http://" + server.Name + "/arcgis/manager").text(text);
-        // return link[0];
-    // }
-    
     
     $.widget("ui.arcGisServerList", {
         options: {
@@ -39,15 +13,30 @@
         _inputBox: null,
         _addButton: null,
         _addServer: function(server) {
-            $("<li>").appendTo(this._serverList).arcGisServerListItem({
-                server: server
+            var self = this;
+            $("<li>").attr({
+                "data-server": server
+            }).appendTo(this._serverList).arcGisServerListItem({
+                server: server,
+                remove: function(event, ui) {
+                    $("[data-server='" + ui.server + "']").remove();
+                    self._trigger("remove", self, {server: server});
+                }
             });
+            this._trigger("add", self, {server: server});
         },
-        _removeServer: function(restUrl) {
-            throw new Error("Not implemented");
+        getServerNames: function() {
+            var i, l, serverItems = $("[data-server]", this.element), servers = null;
+            for (i=0, l=serverItems.length; i < l; i++) {
+                if (!servers) {
+                    servers = [];
+                }
+                servers.push($(serverItems[i]).data("server"));
+            }
+            return servers;
         },
         _create: function() {
-            var self = this, i, l;
+            var self = this, addServer, removeServer, i, l;
             self._inputBox = $("<input type='url' class='ui-ags-url-box' placeholder='http://example.com/ArcGIS/rest/services'>").appendTo(this.element);
             self._addButton = $("<button type='button'>Add ArcGIS Server</button>").appendTo(this.element);
             self._serverList = $("<ul class='ui-ags-list'>").appendTo(this.element);
@@ -65,6 +54,10 @@
         }
     });
     
+    
+    /**
+     * This represents one of the individual items in the arcGisServerList
+     */
     $.widget("ui.arcGisServerListItem", {
         options: {
             server: null
@@ -75,7 +68,12 @@
         _instance: "ArcGIS",
         _list: null,
         _create: function() {
-            var match, link;
+            var self = this, match, link, removeAction;
+            
+            removeAction = function() {
+                self._trigger("remove", self, {"server": self.options.server});
+                return false;
+            };
             
             if (this.options.server === null) {
                 throw new Error("Server name not provided.");
@@ -111,6 +109,9 @@
             link = $("<a>REST endpoint</a>").attr({
                 href: [this._protocol + this._name, this._instance, "rest"].join("/")
             });
+            $("<li>").append(link).appendTo(this._list);
+            
+            link = $("<a href='#'>Remove this server from the list</a>").click(removeAction);
             $("<li>").append(link).appendTo(this._list);
         }
     });

@@ -20,11 +20,34 @@
     <script>
     /*globals jQuery */
    (function($) {
-		var servers = null;
+		var servers = null, serverList, updateLocalStorage;
+		
+		updateLocalStorage = function() {
+			if (typeof(window.localStorage) === "undefined") {
+				return;
+			}
+			if (typeof(serverList) !== "undefined") {
+				var servers = serverList.arcGisServerList("getServerNames");
+				if (servers) {
+					window.localStorage.agsServers = serverList.arcGisServerList("getServerNames");
+				} else {
+					delete window.localStorage.agsServers;
+				}
+			}
+		};
+		
 		if (typeof(window.localStorage) !== "undefined" && typeof(window.localStorage.agsServers) !== "undefined") {
 			servers = window.localStorage.agsServers.split(",");
 		}
-		$("#serverList").arcGisServerList({servers: servers});
+		serverList = $("#serverList").arcGisServerList({
+			servers: servers,
+			add: function(event, ui) {
+				updateLocalStorage();
+			}, 
+			remove: function(event, ui) {
+				updateLocalStorage();
+			}
+		});
 	}(jQuery));
     </script>
 </body>
