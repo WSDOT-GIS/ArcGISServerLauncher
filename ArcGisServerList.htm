@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>ArcGIS Servers</title>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" />
+    <style type="text/css">
+    	.ui-ags-url-box {
+    		width: 100%;
+    	}
+    </style>
+</head>
+<body>
+    <h1>ArcGIS Servers</h1>
+    <div id="serverList"></div>
+    <!-- Import the jQuery library. -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
+    <script src="ArcGisServerList.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    /*globals jQuery */
+   (function($) {
+		var servers = null;
+		if (typeof(window.localStorage) !== "undefined" && typeof(window.localStorage.agsServers) !== "undefined") {
+			servers = window.localStorage.agsServers.split(",");
+		}
+		$("#serverList").arcGisServerList({servers: servers});
+	}(jQuery));
+    </script>
+    <!-- <script src="arcGisRestBrowser.js"></script> -->
+<!--     <script>
+    /*global jQuery:true*/
+	(function($){
+		"use strict";
+		
+		var servers = [
+			"hqolymgis17p",
+			"hqolymgis18p",
+			"hqolymgis20p",
+			"hqolymgis21t"
+		];
+		$("<div>").appendTo('body').arcGisRestBrowser({serverNames: servers});
+	}(jQuery));
+    </script> -->
+</body>
+</html>
