@@ -55,9 +55,11 @@
             return servers;
         },
         _create: function() {
-            var self = this, addServer, removeServer, i, l;
-            self._inputBox = $("<input type='url' class='ui-ags-url-box' placeholder='http://example.com/ArcGIS/rest/services'>").appendTo(this.element);
-            self._addButton = $("<button type='button'>Add ArcGIS Server</button>").appendTo(this.element);
+            var self = this, addServer, removeServer, i, l, inputDiv;
+            $(self.element).addClass('ui-widget');
+            inputDiv = $("<div>").appendTo(self.element);
+            self._inputBox = $("<input type='url' class='ui-ags-url-box' placeholder='http://example.com/ArcGIS/rest/services'>").appendTo(inputDiv);
+            self._addButton = $("<button type='button'>Add ArcGIS Server</button>").appendTo(inputDiv).button();
             self._serverList = $("<ul class='ui-ags-list'>").appendTo(this.element);
             
             // If any servers were defined in the options, add them now.
