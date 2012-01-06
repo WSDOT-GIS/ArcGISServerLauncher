@@ -13,15 +13,15 @@
 <body>
     <h1>ArcGIS Servers</h1>
     <section>
-    	<h1>Usage</h1>
-    	<ol>
-    		<li>Type the URL of the REST endpoint of an ArcGIS Server.  If the server follows the default naming convention, 
-    			you can just type the name of the server.</li>
-			<li>Click the "Add Server" button.<br />  
-				A new list item will be created for this server and saved in the browser's local storage.  This means that the next time you come to the page you will not have to re-enter the servers.
-			</li>
-			<li>If you want to remove a server from the list, click the "remove" link.</li>
-		</ol>
+        <h1>Usage</h1>
+        <ol>
+            <li>Type the URL of the REST endpoint of an ArcGIS Server.  If the server follows the default naming convention, 
+                you can just type the name of the server.</li>
+            <li>Click the "Add Server" button.<br />  
+                A new list item will be created for this server and saved in the browser's local storage.  This means that the next time you come to the page you will not have to re-enter the servers.
+            </li>
+            <li>If you want to remove a server from the list, click the "remove" link.</li>
+        </ol>
     </section>
     <div id="serverList"></div>
     <!-- Import the jQuery library. -->
@@ -47,7 +47,11 @@
             }
         };
         
-        if (typeof(window.localStorage) !== "undefined" && typeof(window.localStorage.agsServers) !== "undefined") {
+        if (typeof(window.localStorage) === "undefined") {
+            // Add warning if browser does not support local storage.
+            $("<p class='ui-state-error'>This browser does not support <em>local storage</em>.  Servers added during this session will not be saved.  Please use <a href='http://www.caniuse.com/#search=web storage'>a browser that supports local storage</a> (e.g., <a href='http://chrome.google.com'>Google Chrome</a>).</p>").prependTo('body');
+        }
+        else if (typeof(window.localStorage.agsServers) !== "undefined") {
             servers = window.localStorage.agsServers.split(",");
         }
         serverList = $("#serverList").arcGisServerList({

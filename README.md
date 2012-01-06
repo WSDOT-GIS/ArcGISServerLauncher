@@ -12,4 +12,5 @@ To try this application go to http://wsdot-grdo.github.com/ArcGISServerLauncher/
 
 ## Planned Features ##
 The following features are planned for future versions.
+
 * Ability to sort the list servers, either alphabetically or by dragging.
