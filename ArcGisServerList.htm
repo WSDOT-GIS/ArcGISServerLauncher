@@ -5,9 +5,9 @@
     <title>ArcGIS Servers</title>
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/base/jquery-ui.css" />
     <style type="text/css">
-    	.ui-ags-url-box {
-    		width: 100%;
-    	}
+        .ui-ags-url-box {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -20,35 +20,35 @@
     <script>
     /*globals jQuery */
    (function($) {
-		var servers = null, serverList, updateLocalStorage;
-		
-		updateLocalStorage = function() {
-			if (typeof(window.localStorage) === "undefined") {
-				return;
-			}
-			if (typeof(serverList) !== "undefined") {
-				var servers = serverList.arcGisServerList("getServerNames");
-				if (servers) {
-					window.localStorage.agsServers = serverList.arcGisServerList("getServerNames");
-				} else {
-					delete window.localStorage.agsServers;
-				}
-			}
-		};
-		
-		if (typeof(window.localStorage) !== "undefined" && typeof(window.localStorage.agsServers) !== "undefined") {
-			servers = window.localStorage.agsServers.split(",");
-		}
-		serverList = $("#serverList").arcGisServerList({
-			servers: servers,
-			add: function(event, ui) {
-				updateLocalStorage();
-			}, 
-			remove: function(event, ui) {
-				updateLocalStorage();
-			}
-		});
-	}(jQuery));
+        var servers = null, serverList, updateLocalStorage;
+        
+        updateLocalStorage = function() {
+            if (typeof(window.localStorage) === "undefined") {
+                return;
+            }
+            if (typeof(serverList) !== "undefined") {
+                var servers = serverList.arcGisServerList("getServerNames");
+                if (servers) {
+                    window.localStorage.agsServers = serverList.arcGisServerList("getServerNames");
+                } else {
+                    delete window.localStorage.agsServers;
+                }
+            }
+        };
+        
+        if (typeof(window.localStorage) !== "undefined" && typeof(window.localStorage.agsServers) !== "undefined") {
+            servers = window.localStorage.agsServers.split(",");
+        }
+        serverList = $("#serverList").arcGisServerList({
+            servers: servers,
+            add: function(event, ui) {
+                updateLocalStorage();
+            }, 
+            remove: function(event, ui) {
+                updateLocalStorage();
+            }
+        });
+    }(jQuery));
     </script>
 </body>
 </html>
