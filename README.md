@@ -9,8 +9,3 @@ To try this application go to http://wsdot-grdo.github.com/ArcGISServerLauncher/
 2. Click the "Add Server" button.  
 	A new list item will be created for this server and saved in the browser's local storage.  This means that the next time you come to the page you will not have to re-enter the servers.
 3. If you want to remove a server from the list, click the "remove" link.
-
-## Planned Features ##
-The following features are planned for future versions.
-
-* Ability to sort the list servers, either alphabetically or by dragging.
