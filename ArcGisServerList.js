@@ -21,6 +21,19 @@
 (function ($) {
     "use strict";
     
+    function compareListItems(a, b) {
+        var lia, lib;
+        lia = $(a).data("arcGisServerListItem");
+        lib = $(b).data("arcGisServerListItem");
+        if (lia._name > lib._name) {
+            return 1;
+        } else if (lia._name < lib._name) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+    
     // A regex that matches an ArcGIS Server REST endpoint.  Capture 1 is the protocol, 2 is the server name, capture 3 is the instance name (usually "ArcGIS").
     var restEndpointRe = /(https?\:\/\/)(.+)\/(\w+)\/rest(?:\/services)?/i;
     
@@ -54,11 +67,19 @@
             }
             return servers;
         },
+        sort: function() {
+            // <summary>Sorts items in the list by the server name.</summary>
+            var list = $(".ui-ags-list", this.element)[0];
+            $("> li", list).sort(compareListItems).appendTo(list);
+            // Trigger the "sort" event.
+            this._trigger("sort", this, {});
+            return this;
+        },
         _create: function() {
             var self = this, addServer, removeServer, i, l, inputDiv;
             $(self.element).addClass('ui-widget');
             inputDiv = $("<div>").appendTo(self.element);
-            self._inputBox = $("<input type='url' class='ui-ags-url-box' placeholder='http://example.com/ArcGIS/rest/services'>").appendTo(inputDiv);
+            self._inputBox = $("<input type='url' class='ui-ags-url-box' placeholder='Enter server name'>").appendTo(inputDiv);
             self._addButton = $("<button type='button'>Add ArcGIS Server</button>").appendTo(inputDiv).button();
             self._serverList = $("<ul class='ui-ags-list'>").appendTo(this.element);
             
@@ -72,6 +93,7 @@
             self._addButton.click(function() {
                 self._addServer(self._inputBox.val());
             });
+            return this;
         }
     });
     
