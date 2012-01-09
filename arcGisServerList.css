@@ -1,0 +1,25 @@
+﻿h1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.ui-ags-list li li {
+	font-size: 0.7em;
+}
+.ui-ags-list li ul, .ui-ags-list li ul li{
+	display: inline;
+}
+
+.ui-ags-list li ul li:first-child:before {
+	content: ''
+}
+
+.ui-ags-list li ul li:before {
+	content: ' | '
+}
+
+.ui-ags-list > li {
+	display: block;
+}
+
+.ui-ags-list {
+	padding: 0;
+}

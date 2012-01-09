@@ -86,13 +86,13 @@
                     primary: "ui-icon-plus"
                 }
             });
+            self._serverList = $("<ul class='ui-ags-list'>").appendTo(this.element);
             // Add the sort button
             self._sortButton = $("<button type='button'>Sort</button>").appendTo(self.element).button({
                 icons: {
                     primary: "ui-icon-shuffle"
                 }
             });
-            self._serverList = $("<ul class='ui-ags-list'>").appendTo(this.element);
             
             // If any servers were defined in the options, add them now.
             if (self.options.servers !== null) {
