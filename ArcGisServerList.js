@@ -21,6 +21,8 @@
 (function ($) {
     "use strict";
     
+    var openLinkInNewWindow;
+    
     function compareListItems(a, b) {
         var lia, lib;
         lia = $(a).data("arcGisServerListItem");
@@ -33,6 +35,11 @@
             return 0;
         }
     }
+    
+    openLinkInNewWindow = function() {
+        window.open(this.href);
+        return false;
+    };
     
     // A regex that matches an ArcGIS Server REST endpoint.  Capture 1 is the protocol, 2 is the server name, capture 3 is the instance name (usually "ArcGIS").
     var restEndpointRe = /(https?\:\/\/)(.+)\/(\w+)\/rest(?:\/services)?/i;
@@ -152,20 +159,20 @@
             // Add the manager link.
             link = $("<a>ArcGIS Server Manager</a>").attr({
                 href: [this._protocol + this._name, this._instance, "Manager"].join("/")
-            });
+            }).click(openLinkInNewWindow);
             $("<li>").append(link).appendTo(this._list);
             
             // Add rest admin link.
             link = $("<a>REST administration</a>").attr({
                 href: [this._protocol + this._name, this._instance, "rest", "admin"].join("/")
-            });
+            }).click(openLinkInNewWindow);
             $("<li>").append(link).appendTo(this._list);
 
             
             // Add the REST endpoint link.
             link = $("<a>REST endpoint</a>").attr({
                 href: [this._protocol + this._name, this._instance, "rest", "services"].join("/")
-            });
+            }).click(openLinkInNewWindow);
             $("<li>").append(link).appendTo(this._list);
             
             link = $("<a href='#'>Remove this server from the list</a>").click(removeAction);
