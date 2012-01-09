@@ -44,6 +44,7 @@
         _serverList: null,
         _inputBox: null,
         _addButton: null,
+        _sortButton: null,
         _addServer: function(server) {
             var self = this;
             $("<li>").attr({
@@ -80,7 +81,17 @@
             $(self.element).addClass('ui-widget');
             inputDiv = $("<div>").appendTo(self.element);
             self._inputBox = $("<input type='url' class='ui-ags-url-box' placeholder='Enter server name'>").appendTo(inputDiv);
-            self._addButton = $("<button type='button'>Add ArcGIS Server</button>").appendTo(inputDiv).button();
+            self._addButton = $("<button type='button'>Add ArcGIS Server</button>").appendTo(inputDiv).button({
+                icons: {
+                    primary: "ui-icon-plusthick"
+                }
+            });
+            // Add the sort button
+            self._sortButton = $("<button type='button'>Sort</button>").appendTo(self.element).button({
+                icons: {
+                    primary: "ui-icon-shuffle"
+                }
+            });
             self._serverList = $("<ul class='ui-ags-list'>").appendTo(this.element);
             
             // If any servers were defined in the options, add them now.
@@ -92,6 +103,9 @@
             
             self._addButton.click(function() {
                 self._addServer(self._inputBox.val());
+            });
+            self._sortButton.click(function() {
+                self.sort();
             });
             return this;
         }
