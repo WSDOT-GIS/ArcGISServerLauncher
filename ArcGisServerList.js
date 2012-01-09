@@ -80,7 +80,7 @@
             var self = this, addServer, removeServer, i, l, inputDiv;
             $(self.element).addClass('ui-widget');
             inputDiv = $("<div>").appendTo(self.element);
-            self._inputBox = $("<input type='url' class='ui-ags-url-box' placeholder='Enter server name'>").appendTo(inputDiv);
+            self._inputBox = $("<input type='text' class='ui-ags-url-box' placeholder='Enter server name'>").appendTo(inputDiv);
             self._addButton = $("<button type='button'>Add ArcGIS Server</button>").appendTo(inputDiv).button({
                 icons: {
                     primary: "ui-icon-plus"
