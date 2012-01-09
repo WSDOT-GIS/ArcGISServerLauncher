@@ -83,7 +83,7 @@
             self._inputBox = $("<input type='url' class='ui-ags-url-box' placeholder='Enter server name'>").appendTo(inputDiv);
             self._addButton = $("<button type='button'>Add ArcGIS Server</button>").appendTo(inputDiv).button({
                 icons: {
-                    primary: "ui-icon-plusthick"
+                    primary: "ui-icon-plus"
                 }
             });
             // Add the sort button
