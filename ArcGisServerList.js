@@ -164,7 +164,7 @@
             
             // Add the REST endpoint link.
             link = $("<a>REST endpoint</a>").attr({
-                href: [this._protocol + this._name, this._instance, "rest"].join("/")
+                href: [this._protocol + this._name, this._instance, "rest", "services"].join("/")
             });
             $("<li>").append(link).appendTo(this._list);
             
