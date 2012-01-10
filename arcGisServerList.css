@@ -5,9 +5,14 @@
 .ui-ags-list li li {
 	font-size: 0.7em;
 }
+
+.ui-ags-list li:hover{
+	background-color: #ccffcc;
+}
 .ui-ags-list li ul, .ui-ags-list li ul li{
 	display: inline;
 }
+
 
 .ui-ags-list li ul li:first-child:before {
 	content: ''
@@ -16,6 +21,12 @@
 .ui-ags-list li ul li:before {
 	content: ' | '
 }
+
+/*
+.ui-ags-list li ul li {
+	margin: 0 10px 0 10px;
+}
+*/
 
 .ui-ags-list > li {
 	display: block;

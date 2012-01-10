@@ -37,6 +37,7 @@
     }
     
     openLinkInNewWindow = function() {
+        /// <summary>Opens a link in a new window or tab.  This method is intended to be called from an a element's click event.</summary>
         window.open(this.href);
         return false;
     };
@@ -53,7 +54,9 @@
         _addButton: null,
         _sortButton: null,
         _addServer: function(server) {
+            /// <summary>Adds a new server to the list.</summary>
             var self = this;
+            // TODO: Make sure that the server that is being added is not already in the list.
             $("<li>").attr({
                 "data-server": server
             }).appendTo(this._serverList).arcGisServerListItem({
@@ -86,6 +89,7 @@
         _create: function() {
             var self = this, addServer, removeServer, i, l, inputDiv;
             $(self.element).addClass('ui-widget');
+            self._serverList = $("<ul class='ui-ags-list'>").appendTo(this.element);
             inputDiv = $("<div>").appendTo(self.element);
             self._inputBox = $("<input type='text' class='ui-ags-url-box' placeholder='Enter server name'>").appendTo(inputDiv);
             self._addButton = $("<button type='button'>Add ArcGIS Server</button>").appendTo(inputDiv).button({
@@ -93,7 +97,6 @@
                     primary: "ui-icon-plus"
                 }
             });
-            self._serverList = $("<ul class='ui-ags-list'>").appendTo(this.element);
             // Add the sort button
             self._sortButton = $("<button type='button'>Sort</button>").appendTo(self.element).button({
                 icons: {
@@ -154,16 +157,21 @@
             
             // Create the list of links.
             $(this.element).text(this._name);
-            this._list = $("<ul>").appendTo(this.element);
+            this._list = $("<ul class='ui-ags-link-list'>").appendTo(this.element).hide();
+            $(this.element).hover(function(evt) {
+                $(".ui-ags-link-list", this).show();
+            }, function(evt) {
+                $(".ui-ags-link-list", this).hide();
+            });
             
             // Add the manager link.
-            link = $("<a>ArcGIS Server Manager</a>").attr({
+            link = $("<a title='ArcGIS Server Manager'>Manager</a>").attr({
                 href: [this._protocol + this._name, this._instance, "Manager"].join("/")
             }).click(openLinkInNewWindow);
             $("<li>").append(link).appendTo(this._list);
             
             // Add rest admin link.
-            link = $("<a>REST administration</a>").attr({
+            link = $("<a>REST admin.</a>").attr({
                 href: [this._protocol + this._name, this._instance, "rest", "admin"].join("/")
             }).click(openLinkInNewWindow);
             $("<li>").append(link).appendTo(this._list);
@@ -175,7 +183,7 @@
             }).click(openLinkInNewWindow);
             $("<li>").append(link).appendTo(this._list);
             
-            link = $("<a href='#'>Remove this server from the list</a>").click(removeAction);
+            link = $("<a href='#' title='Remove this server from the list'>Remove</a>").click(removeAction);
             $("<li>").append(link).appendTo(this._list);
         }
     });
