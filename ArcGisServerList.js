@@ -1,4 +1,5 @@
-﻿/*globals jQuery */
+﻿/*jslint browser:true */
+/*globals jQuery, window */
 
 /*
 * Copyright (c) 2012 Washington State Department of Transportation
