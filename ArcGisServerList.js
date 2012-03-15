@@ -175,6 +175,12 @@
                 href: [this._protocol + this._name, this._instance, "rest", "admin"].join("/")
             }).click(openLinkInNewWindow);
             $("<li>").append(link).appendTo(this._list);
+            
+            // Add rest admin clear cache link.
+            link = $("<a>Clear REST cache</a>").attr({
+                href: [this._protocol + this._name, this._instance, "rest", "admin", "cache", "clear"].join("/")
+            }).click(openLinkInNewWindow);
+            $("<li>").append(link).appendTo(this._list);
 
             
             // Add the REST endpoint link.
