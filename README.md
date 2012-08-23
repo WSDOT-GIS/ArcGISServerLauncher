@@ -2,7 +2,7 @@
 This is an HTML5 application that aids in managing multiple ArcGIS Servers by providing links for the servers' REST endpoint, REST Admin and Manager.
 
 ## Demo ##
-To try this application go to http://wsdot-grdo.github.com/ArcGISServerLauncher/
+To try this application go to http://wsdot-gis.github.com/ArcGISServerLauncher/
 
 ## Usage ##
 1. Type the URL of the REST endpoint of an ArcGIS Server.  If the server follows the default naming convention, you can just type the name of the server.
