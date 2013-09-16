@@ -1,3 +1,5 @@
+**Note: This application was designed for pre-10.1 versions of ArcGIS Server. It does not work with current versions.**
+
 # ArcGIS Server Launcher #
 This is an HTML5 application that aids in managing multiple ArcGIS Servers by providing links for the servers' REST endpoint, REST Admin and Manager.
 
